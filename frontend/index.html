@@ -13,12 +13,17 @@
 
 <script>
 function login() {
-  fetch("http://localhost:3000/login", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-      usuario: usuario.value,
-      senha: senha.value
+  //ANTES: Vai buscar no computador do usuario - nao funciona na nuvem!
+  fetch("http://localhost:3000/login",{
+
+    //DEPOIS: Caminho relativo- busca no mesmo servidor onde o site esta
+    fetch('/login",{
+
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            usuario: usuario.value,
+            senha: senha.value
     })
   })
   .then(r => r.json())
