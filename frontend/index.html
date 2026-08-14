@@ -13,11 +13,7 @@
 
 <script>
 function login() {
-  //ANTES: Vai buscar no computador do usuario - nao funciona na nuvem!
-  fetch("http://localhost:3000/login",{
-
-    //DEPOIS: Caminho relativo- busca no mesmo servidor onde o site esta
-    fetch('/login",{
+   fetch('/login",{
 
           method: "POST",
           headers: {"Content-Type": "application/json"},
