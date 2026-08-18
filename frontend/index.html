@@ -3,99 +3,145 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Sistema Hospitalar</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>HospTech | Login</title>
 
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="login-page">
 
   <div class="container">
 
-    <div class="login-header">
-      <div class="hospital-icon">🏥</div>
-
-      <h2>Sistema Hospitalar</h2>
-
-      <p>Faça login para acessar o sistema</p>
+    <div style="font-size: 55px; margin-bottom: 10px;">
+      🏥
     </div>
 
-    <div class="login-form">
+    <h2>Sistema Hospitalar</h2>
 
-      <label for="usuario">Usuário</label>
-      <input
-        id="usuario"
-        type="text"
-        placeholder="Digite seu usuário"
-        autocomplete="username"
-      >
+    <p>
+      Acesse o sistema para continuar
+    </p>
 
-      <label for="senha">Senha</label>
-      <input
-        id="senha"
-        type="password"
-        placeholder="Digite sua senha"
-        autocomplete="current-password"
-      >
+    <input
+      id="usuario"
+      placeholder="Usuário"
+      autocomplete="username"
+    >
 
-      <button onclick="login()">
-        Entrar
-      </button>
+    <input
+      id="senha"
+      type="password"
+      placeholder="Senha"
+      autocomplete="current-password"
+    >
 
-    </div>
+    <button onclick="login()">
+      Entrar
+    </button>
 
-    <div class="login-footer">
-      <span>🔒 Acesso seguro ao sistema</span>
-    </div>
+    <div id="erro"></div>
 
   </div>
 
-  <script>
+<script>
 
-    function login() {
+async function login() {
 
-      const usuario = document.getElementById("usuario");
-      const senha = document.getElementById("senha");
+  const usuario =
+    document.getElementById("usuario").value.trim();
 
-      fetch("/login", {
+  const senha =
+    document.getElementById("senha").value;
 
-        method: "POST",
+  const erro =
+    document.getElementById("erro");
 
-        headers: {
-          "Content-Type": "application/json"
-        },
+  erro.innerHTML = "";
 
-        body: JSON.stringify({
-          usuario: usuario.value,
-          senha: senha.value
-        })
+  if (!usuario || !senha) {
 
+    erro.className = "vermelho";
+
+    erro.innerText =
+      "Informe usuário e senha.";
+
+    return;
+  }
+
+  try {
+
+    const response = await fetch("/login", {
+
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        usuario,
+        senha
       })
 
-      .then(r => r.json())
+    });
 
-      .then(data => {
+    const data = await response.json();
 
-        if (data.tipo === "triagem") {
-          location.href = "triagem.html";
-        }
+    if (!response.ok) {
 
-        if (data.tipo === "medico") {
-          location.href = "medico.html";
-        }
-
-        if (data.tipo === "atendimento") {
-          location.href = "atendimento.html";
-        }
-
-      });
+      throw new Error(
+        data.erro || "Erro ao realizar login."
+      );
 
     }
 
-  </script>
+    if (data.tipo === "triagem") {
+      location.href = "triagem.html";
+      return;
+    }
+
+    if (data.tipo === "medico") {
+      location.href = "medico.html";
+      return;
+    }
+
+    if (data.tipo === "atendimento") {
+      location.href = "atendimento.html";
+      return;
+    }
+
+    erro.className = "vermelho";
+
+    erro.innerText =
+      "Tipo de usuário não reconhecido.";
+
+  } catch (error) {
+
+    erro.className = "vermelho";
+
+    erro.innerText = error.message;
+
+  }
+
+}
+
+document
+  .getElementById("senha")
+  .addEventListener("keydown", event => {
+
+    if (event.key === "Enter") {
+      login();
+    }
+
+  });
+
+</script>
 
 </body>
-
 </html>
