@@ -1,36 +1,188 @@
 <!DOCTYPE html>
-<html>
-<head><link rel="stylesheet" href="style.css"></head>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>HospTech | Atendimento</title>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
 <body>
+
 <div class="container">
-<h2>Atendimento</h2>
 
-<input id="nome" placeholder="Nome">
-<input id="cpf" placeholder="CPF">
+  <h2>👤 Atendimento</h2>
 
-<select id="tipo">
-  <option>Convenio</option>
-  <option>Particular</option>
-</select>
+  <p>
+    Cadastre o paciente para enviá-lo à fila de triagem.
+  </p>
 
-<input type="file" id="foto">
+  <input
+    id="nome"
+    placeholder="Nome completo"
+  >
 
-<button onclick="cadastrar()">Cadastrar</button>
+  <input
+    id="cpf"
+    placeholder="CPF"
+  >
+
+  <select id="tipo">
+
+    <option value="">
+      Tipo de atendimento
+    </option>
+
+    <option value="Convenio">
+      Convênio
+    </option>
+
+    <option value="Particular">
+      Particular
+    </option>
+
+  </select>
+
+  <input
+    type="file"
+    id="foto"
+    accept="image/*"
+  >
+
+  <button onclick="cadastrar()">
+    Cadastrar paciente
+  </button>
+
+  <div id="resultado"></div>
+
 </div>
 
 <script>
-function cadastrar(){
- fetch("http://localhost:3000/atendimento",{
-  method:"POST",
-  headers:{"Content-Type":"application/json"},
-  body: JSON.stringify({
-    nome: nome.value,
-    cpf: cpf.value,
-    tipo: tipo.value
-  })
- });
- alert("Paciente enviado para triagem");
+
+async function cadastrar() {
+
+  const nome =
+    document.getElementById("nome").value.trim();
+
+  const cpf =
+    document.getElementById("cpf").value.trim();
+
+  const tipo =
+    document.getElementById("tipo").value;
+
+  const fotoInput =
+    document.getElementById("foto");
+
+  const resultado =
+    document.getElementById("resultado");
+
+  resultado.innerHTML = "";
+
+  if (!nome || !cpf || !tipo) {
+
+    resultado.className = "vermelho";
+
+    resultado.innerText =
+      "Preencha todos os campos obrigatórios.";
+
+    return;
+  }
+
+  let foto = null;
+
+  if (fotoInput.files.length > 0) {
+
+    const arquivo =
+      fotoInput.files[0];
+
+    if (!arquivo.type.startsWith("image/")) {
+
+      resultado.className = "vermelho";
+
+      resultado.innerText =
+        "Selecione uma imagem válida.";
+
+      return;
+    }
+
+    foto = await converterImagem(arquivo);
+  }
+
+  try {
+
+    const response = await fetch(
+      "/atendimento",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+          nome,
+          cpf,
+          tipo,
+          foto
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.erro || "Erro ao cadastrar paciente."
+      );
+    }
+
+    resultado.className = "verde";
+
+    resultado.innerText =
+      "Paciente cadastrado e enviado para a triagem.";
+
+    document.getElementById("nome").value = "";
+    document.getElementById("cpf").value = "";
+    document.getElementById("tipo").value = "";
+    fotoInput.value = "";
+
+  } catch (error) {
+
+    resultado.className = "vermelho";
+
+    resultado.innerText = error.message;
+
+  }
+
 }
+
+function converterImagem(file) {
+
+  return new Promise((resolve, reject) => {
+
+    const reader = new FileReader();
+
+    reader.onload = () =>
+      resolve(reader.result);
+
+    reader.onerror = reject;
+
+    reader.readAsDataURL(file);
+
+  });
+
+}
+
 </script>
+
 </body>
 </html>
