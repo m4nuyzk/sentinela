@@ -1,22 +1,80 @@
+*{
+  box-sizing: border-box;
+}
+
 body{
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #0d0614, #1b0b2b, #321052);
+  background:
+    radial-gradient(circle at top, #321052 0%, transparent 40%),
+    linear-gradient(135deg, #0d0614, #1b0b2b, #321052);
   margin: 0;
   min-height: 100vh;
   color: #f5eaff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* CONTAINER PRINCIPAL */
 .container{
   width: 90%;
   max-width: 900px;
   margin: 30px auto;
   background: linear-gradient(145deg, #1b0d29, #120819);
-  padding: 25px;
+  padding: 30px;
   border-radius: 18px;
   border: 1px solid #6d3a91;
+
   box-shadow:
     0 10px 35px rgba(0, 0, 0, 0.5),
     0 0 25px rgba(143, 70, 190, 0.15);
+}
+
+/* CABEÇALHO DO LOGIN */
+.login-header{
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.hospital-icon{
+  font-size: 50px;
+  margin-bottom: 5px;
+
+  filter:
+    drop-shadow(0 0 8px rgba(192, 132, 252, 0.4))
+    drop-shadow(0 0 18px rgba(126, 34, 206, 0.3));
+}
+
+.login-header h2{
+  margin: 5px 0;
+  font-size: 28px;
+
+  background: linear-gradient(
+    90deg,
+    #e9d5ff,
+    #c084fc,
+    #9333ea,
+    #6d28d9
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.login-header p{
+  color: #a98bbd;
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+/* FORMULÁRIO */
+.login-form label{
+  display: block;
+  margin-top: 15px;
+  color: #d8b4fe;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 /* CAMPOS */
@@ -30,7 +88,6 @@ button{
   border-radius: 10px;
   border: 1px solid #63358a;
   font-size: 16px;
-  box-sizing: border-box;
   transition: 0.3s ease;
 }
 
@@ -44,14 +101,17 @@ textarea{
 
 input::placeholder,
 textarea::placeholder{
-  color: #a98bbd;
+  color: #806693;
 }
 
 input:focus,
 select:focus,
 textarea:focus{
   border-color: #c084fc;
-  box-shadow: 0 0 12px rgba(192, 132, 252, 0.35);
+
+  box-shadow:
+    0 0 12px rgba(192, 132, 252, 0.35),
+    inset 0 0 8px rgba(126, 34, 206, 0.08);
 }
 
 /* TEXTAREA */
@@ -68,23 +128,33 @@ button{
     #9333ea,
     #5b21b6
   );
+
   color: white;
   border: none;
   cursor: pointer;
   font-weight: bold;
   letter-spacing: 0.5px;
-  box-shadow: 0 5px 15px rgba(126, 34, 206, 0.35);
+
+  box-shadow:
+    0 5px 15px rgba(126, 34, 206, 0.35);
 }
 
 button:hover{
   transform: translateY(-2px);
+
   background: linear-gradient(
     135deg,
     #d8b4fe,
     #a855f7,
     #6d28d9
   );
-  box-shadow: 0 8px 22px rgba(168, 85, 247, 0.5);
+
+  box-shadow:
+    0 8px 22px rgba(168, 85, 247, 0.5);
+}
+
+button:active{
+  transform: translateY(0);
 }
 
 /* CARDS */
@@ -93,20 +163,24 @@ button:hover{
   padding: 18px;
   margin: 15px 0;
   border-radius: 14px;
+
   background: linear-gradient(
     145deg,
     #251036,
     #160b20
   );
+
   box-shadow:
     0 5px 15px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.03);
+
   transition: 0.3s ease;
 }
 
 .card:hover{
   transform: translateY(-3px);
   border-color: #8b4db3;
+
   box-shadow:
     0 8px 22px rgba(0, 0, 0, 0.5),
     0 0 15px rgba(139, 77, 179, 0.2);
@@ -114,7 +188,13 @@ button:hover{
 
 /* STATUS VERDE */
 .verde{
-  background: linear-gradient(135deg, #34d399, #059669);
+  display: inline-block;
+  background: linear-gradient(
+    135deg,
+    #34d399,
+    #059669
+  );
+
   color: white;
   padding: 5px 10px;
   border-radius: 6px;
@@ -123,7 +203,13 @@ button:hover{
 
 /* STATUS AMARELO */
 .amarelo{
-  background: linear-gradient(135deg, #facc15, #ca8a04);
+  display: inline-block;
+  background: linear-gradient(
+    135deg,
+    #facc15,
+    #ca8a04
+  );
+
   color: #1a1200;
   padding: 5px 10px;
   border-radius: 6px;
@@ -132,7 +218,13 @@ button:hover{
 
 /* STATUS VERMELHO */
 .vermelho{
-  background: linear-gradient(135deg, #f87171, #dc2626);
+  display: inline-block;
+  background: linear-gradient(
+    135deg,
+    #f87171,
+    #dc2626
+  );
+
   color: white;
   padding: 5px 10px;
   border-radius: 6px;
@@ -144,7 +236,9 @@ h1,
 h2,
 h3{
   color: #e9d5ff;
-  text-shadow: 0 0 12px rgba(192, 132, 252, 0.25);
+
+  text-shadow:
+    0 0 12px rgba(192, 132, 252, 0.25);
 }
 
 /* LINKS */
@@ -156,5 +250,33 @@ a{
 
 a:hover{
   color: #e9d5ff;
-  text-shadow: 0 0 8px rgba(216, 180, 254, 0.6);
+
+  text-shadow:
+    0 0 8px rgba(216, 180, 254, 0.6);
+}
+
+/* RODAPÉ DO LOGIN */
+.login-footer{
+  text-align: center;
+  margin-top: 20px;
+  color: #806693;
+  font-size: 13px;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 600px){
+
+  .container{
+    width: 92%;
+    padding: 22px;
+  }
+
+  .login-header h2{
+    font-size: 24px;
+  }
+
+  .hospital-icon{
+    font-size: 42px;
+  }
+
 }
