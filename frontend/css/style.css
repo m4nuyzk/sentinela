@@ -1,72 +1,160 @@
 body{
-  font-family: Arial;
-  background:#f4f6f9;
-  margin:0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0d0614, #1b0b2b, #321052);
+  margin: 0;
+  min-height: 100vh;
+  color: #f5eaff;
 }
 
 .container{
-  width:90%;
-  max-width:900px;
-  margin:20px auto;
-  background:white;
-  padding:20px;
-  border-radius:12px;
-  box-shadow:0 5px 20px rgba(0,0,0,0.1);
+  width: 90%;
+  max-width: 900px;
+  margin: 30px auto;
+  background: linear-gradient(145deg, #1b0d29, #120819);
+  padding: 25px;
+  border-radius: 18px;
+  border: 1px solid #6d3a91;
+  box-shadow:
+    0 10px 35px rgba(0, 0, 0, 0.5),
+    0 0 25px rgba(143, 70, 190, 0.15);
 }
 
+/* CAMPOS */
 input,
 select,
 textarea,
 button{
-  width:100%;
-  padding:12px;
-  margin-top:10px;
-  border-radius:8px;
-  border:1px solid #ccc;
-  font-size:16px;
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid #63358a;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: 0.3s ease;
 }
 
+input,
+select,
 textarea{
-  min-height:100px;
-  resize:none;
+  background: #0f0717;
+  color: #f5eaff;
+  outline: none;
 }
 
+input::placeholder,
+textarea::placeholder{
+  color: #a98bbd;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color: #c084fc;
+  box-shadow: 0 0 12px rgba(192, 132, 252, 0.35);
+}
+
+/* TEXTAREA */
+textarea{
+  min-height: 100px;
+  resize: none;
+}
+
+/* BOTÃO */
 button{
-  background:#3498db;
-  color:white;
-  border:none;
-  cursor:pointer;
+  background: linear-gradient(
+    135deg,
+    #c084fc,
+    #9333ea,
+    #5b21b6
+  );
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  box-shadow: 0 5px 15px rgba(126, 34, 206, 0.35);
 }
 
 button:hover{
-  background:#2980b9;
+  transform: translateY(-2px);
+  background: linear-gradient(
+    135deg,
+    #d8b4fe,
+    #a855f7,
+    #6d28d9
+  );
+  box-shadow: 0 8px 22px rgba(168, 85, 247, 0.5);
 }
 
+/* CARDS */
 .card{
-  border:1px solid #ddd;
-  padding:15px;
-  margin:15px 0;
-  border-radius:10px;
-  background:white;
-  box-shadow:0 2px 8px rgba(0,0,0,0.08);
+  border: 1px solid #542575;
+  padding: 18px;
+  margin: 15px 0;
+  border-radius: 14px;
+  background: linear-gradient(
+    145deg,
+    #251036,
+    #160b20
+  );
+  box-shadow:
+    0 5px 15px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  transition: 0.3s ease;
 }
 
+.card:hover{
+  transform: translateY(-3px);
+  border-color: #8b4db3;
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.5),
+    0 0 15px rgba(139, 77, 179, 0.2);
+}
+
+/* STATUS VERDE */
 .verde{
-  background:#2ecc71;
-  color:white;
-  padding:5px 10px;
-  border-radius:6px;
+  background: linear-gradient(135deg, #34d399, #059669);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-weight: bold;
 }
 
+/* STATUS AMARELO */
 .amarelo{
-  background:#f1c40f;
-  padding:5px 10px;
-  border-radius:6px;
+  background: linear-gradient(135deg, #facc15, #ca8a04);
+  color: #1a1200;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-weight: bold;
 }
 
+/* STATUS VERMELHO */
 .vermelho{
-  background:#e74c3c;
-  color:white;
-  padding:5px 10px;
-  border-radius:6px;
+  background: linear-gradient(135deg, #f87171, #dc2626);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+/* TÍTULOS */
+h1,
+h2,
+h3{
+  color: #e9d5ff;
+  text-shadow: 0 0 12px rgba(192, 132, 252, 0.25);
+}
+
+/* LINKS */
+a{
+  color: #c084fc;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+a:hover{
+  color: #e9d5ff;
+  text-shadow: 0 0 8px rgba(216, 180, 254, 0.6);
 }
