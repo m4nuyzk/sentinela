@@ -1,62 +1,142 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
+
 <head>
-  <link rel="stylesheet" href="css/style.css">
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>HospTech | Medicações</title>
+
+  <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
 <div class="container">
 
-  <h2>💊 Medicações Prescritas</h2>
+  <h2>
+    💊 Medicações Prescritas
+  </h2>
 
-  <!-- IMPLEMENTADO: local onde a lista de medicações será exibida -->
-  <div id="listaMedicacoes"></div>
+  <p>
+    Histórico de medicações prescritas durante as consultas.
+  </p>
+
+  <div id="listaMedicacoes">
+
+    <p>
+      Carregando...
+    </p>
+
+  </div>
 
 </div>
 
 <script>
 
-// IMPLEMENTADO: busca as consultas salvas e mostra as medicações
-function carregarMedicacoesPrescritas() {
-  fetch("/medicacoes")
-    .then(r => r.json())
-    .then(data => {
-      const div = document.getElementById("listaMedicacoes");
+async function carregarMedicacoesPrescritas() {
 
-      div.innerHTML = "";
+  const div =
+    document.getElementById(
+      "listaMedicacoes"
+    );
 
-      if (data.length === 0) {
-        div.innerHTML = "<p>Nenhuma medicação prescrita.</p>";
-        return;
-      }
+  try {
 
-      data.forEach(c => {
-        div.innerHTML += `
-          <div class="card">
-            <h3>${c.paciente}</h3>
+    const response =
+      await fetch("/medicacoes");
 
-            <p>
-              <b>Medicação:</b>
-              ${c.medicacao}
-            </p>
+    const data =
+      await response.json();
 
-            <p>
-              <b>Diagnóstico:</b>
-              ${c.diagnostico}
-            </p>
+    div.innerHTML = "";
 
-            <p>
-              <b>Observações:</b>
-              ${c.obs || "Nenhuma"}
-            </p>
-          </div>
-        `;
-      });
+    if (data.length === 0) {
+
+      div.innerHTML = `
+        <div class="card">
+          <p>
+            Nenhuma medicação prescrita ainda.
+          </p>
+        </div>
+      `;
+
+      return;
+    }
+
+    data.forEach(c => {
+
+      const card =
+        document.createElement("div");
+
+      card.className = "card";
+
+      card.innerHTML = `
+
+        <h3>
+          👤 ${escapeHTML(c.paciente)}
+        </h3>
+
+        <p>
+          <b>💊 Medicação:</b>
+          ${escapeHTML(c.medicacao)}
+        </p>
+
+        <p>
+          <b>🩺 Diagnóstico:</b>
+          ${escapeHTML(c.diagnostico)}
+        </p>
+
+        <p>
+          <b>📝 Observações:</b>
+          ${escapeHTML(
+            c.obs || "Nenhuma"
+          )}
+        </p>
+
+      `;
+
+      div.appendChild(card);
+
     });
+
+  } catch (error) {
+
+    div.innerHTML = `
+      <div class="card">
+        <p style="color:#f87171;">
+          Erro ao carregar medicações.
+        </p>
+      </div>
+    `;
+
+  }
+
+}
+
+function escapeHTML(value) {
+
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+
 }
 
 carregarMedicacoesPrescritas();
+
+setInterval(
+  carregarMedicacoesPrescritas,
+  10000
+);
 
 </script>
 
