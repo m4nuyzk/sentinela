@@ -1,34 +1,101 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
+
 <head>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Sistema Hospitalar</title>
+
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<div class="container">
-  <h2>🏥 Sistema Hospitalar</h2>
-  <input id="usuario" placeholder="Usuário">
-  <input id="senha" type="password" placeholder="Senha">
-  <button onclick="login()">Entrar</button>
-</div>
 
-<script>
-function login() {
-   fetch("/login",{
+  <div class="container">
 
-          method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({
-            usuario: usuario.value,
-            senha: senha.value
-    })
-  })
-  .then(r => r.json())
-  .then(data => {
-    if(data.tipo === "triagem") location.href = "triagem.html";
-    if(data.tipo === "medico") location.href = "medico.html";
-    if(data.tipo === "atendimento") location.href = "atendimento.html";
-  });
-}
-</script>
+    <div class="login-header">
+      <div class="hospital-icon">🏥</div>
+
+      <h2>Sistema Hospitalar</h2>
+
+      <p>Faça login para acessar o sistema</p>
+    </div>
+
+    <div class="login-form">
+
+      <label for="usuario">Usuário</label>
+      <input
+        id="usuario"
+        type="text"
+        placeholder="Digite seu usuário"
+        autocomplete="username"
+      >
+
+      <label for="senha">Senha</label>
+      <input
+        id="senha"
+        type="password"
+        placeholder="Digite sua senha"
+        autocomplete="current-password"
+      >
+
+      <button onclick="login()">
+        Entrar
+      </button>
+
+    </div>
+
+    <div class="login-footer">
+      <span>🔒 Acesso seguro ao sistema</span>
+    </div>
+
+  </div>
+
+  <script>
+
+    function login() {
+
+      const usuario = document.getElementById("usuario");
+      const senha = document.getElementById("senha");
+
+      fetch("/login", {
+
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+          usuario: usuario.value,
+          senha: senha.value
+        })
+
+      })
+
+      .then(r => r.json())
+
+      .then(data => {
+
+        if (data.tipo === "triagem") {
+          location.href = "triagem.html";
+        }
+
+        if (data.tipo === "medico") {
+          location.href = "medico.html";
+        }
+
+        if (data.tipo === "atendimento") {
+          location.href = "atendimento.html";
+        }
+
+      });
+
+    }
+
+  </script>
+
 </body>
+
 </html>
