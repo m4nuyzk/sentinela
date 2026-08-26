@@ -26,15 +26,145 @@
     Cadastre o paciente para enviá-lo à fila de triagem.
   </p>
 
+  <!-- DADOS PESSOAIS -->
+
+  <h3>Dados pessoais</h3>
+
   <input
     id="nome"
+    type="text"
     placeholder="Nome completo"
+    autocomplete="name"
   >
 
   <input
     id="cpf"
+    type="text"
     placeholder="CPF"
+    maxlength="14"
   >
+
+  <input
+    id="rg"
+    type="text"
+    placeholder="RG"
+    maxlength="20"
+  >
+
+  <input
+    id="outroDocumento"
+    type="text"
+    placeholder="Outro documento"
+  >
+
+  <label for="dataNascimento">
+    Data de nascimento
+  </label>
+
+  <input
+    id="dataNascimento"
+    type="date"
+  >
+
+  <select id="sexo">
+
+    <option value="">
+      Sexo
+    </option>
+
+    <option value="Feminino">
+      Feminino
+    </option>
+
+    <option value="Masculino">
+      Masculino
+    </option>
+
+    <option value="Outro">
+      Outro
+    </option>
+
+    <option value="Nao informado">
+      Prefiro não informar
+    </option>
+
+  </select>
+
+  <input
+    id="nomeMae"
+    type="text"
+    placeholder="Nome da mãe"
+  >
+
+  <select id="estadoCivil">
+
+    <option value="">
+      Estado civil
+    </option>
+
+    <option value="Solteiro">
+      Solteiro(a)
+    </option>
+
+    <option value="Casado">
+      Casado(a)
+    </option>
+
+    <option value="Divorciado">
+      Divorciado(a)
+    </option>
+
+    <option value="Viuvo">
+      Viúvo(a)
+    </option>
+
+    <option value="Uniao estavel">
+      União estável
+    </option>
+
+  </select>
+
+
+  <!-- CONTATO -->
+
+  <h3>Contato</h3>
+
+  <input
+    id="telefone"
+    type="tel"
+    placeholder="Telefone"
+    autocomplete="tel"
+  >
+
+  <input
+    id="email"
+    type="email"
+    placeholder="E-mail"
+    autocomplete="email"
+  >
+
+  <input
+    id="contatoEmergencia"
+    type="text"
+    placeholder="Contato de emergência"
+  >
+
+
+  <!-- ENDEREÇO -->
+
+  <h3>Endereço</h3>
+
+  <input
+    id="endereco"
+    type="text"
+    placeholder="Endereço completo"
+    autocomplete="street-address"
+  >
+
+
+  <!-- ATENDIMENTO -->
+
+  <h3>Atendimento</h3>
 
   <select id="tipo">
 
@@ -52,11 +182,17 @@
 
   </select>
 
+
+  <!-- FOTO -->
+
+  <h3>Foto do paciente</h3>
+
   <input
     type="file"
     id="foto"
     accept="image/*"
   >
+
 
   <button onclick="cadastrar()">
     Cadastrar paciente
@@ -65,6 +201,7 @@
   <div id="resultado"></div>
 
 </div>
+
 
 <script>
 
@@ -76,6 +213,58 @@ async function cadastrar() {
   const cpf =
     document.getElementById("cpf").value.trim();
 
+  const rg =
+    document.getElementById("rg").value.trim();
+
+  const outroDocumento =
+    document
+      .getElementById("outroDocumento")
+      .value
+      .trim();
+
+  const dataNascimento =
+    document
+      .getElementById("dataNascimento")
+      .value;
+
+  const sexo =
+    document.getElementById("sexo").value;
+
+  const nomeMae =
+    document
+      .getElementById("nomeMae")
+      .value
+      .trim();
+
+  const estadoCivil =
+    document
+      .getElementById("estadoCivil")
+      .value;
+
+  const endereco =
+    document
+      .getElementById("endereco")
+      .value
+      .trim();
+
+  const telefone =
+    document
+      .getElementById("telefone")
+      .value
+      .trim();
+
+  const email =
+    document
+      .getElementById("email")
+      .value
+      .trim();
+
+  const contatoEmergencia =
+    document
+      .getElementById("contatoEmergencia")
+      .value
+      .trim();
+
   const tipo =
     document.getElementById("tipo").value;
 
@@ -85,9 +274,26 @@ async function cadastrar() {
   const resultado =
     document.getElementById("resultado");
 
+
   resultado.innerHTML = "";
 
-  if (!nome || !cpf || !tipo) {
+
+  // VALIDAÇÃO DOS CAMPOS OBRIGATÓRIOS
+
+  if (
+    !nome ||
+    !cpf ||
+    !rg ||
+    !dataNascimento ||
+    !sexo ||
+    !nomeMae ||
+    !estadoCivil ||
+    !endereco ||
+    !telefone ||
+    !email ||
+    !contatoEmergencia ||
+    !tipo
+  ) {
 
     resultado.className = "vermelho";
 
@@ -95,7 +301,28 @@ async function cadastrar() {
       "Preencha todos os campos obrigatórios.";
 
     return;
+
   }
+
+
+  // VALIDAÇÃO DO E-MAIL
+
+  const emailValido =
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailValido.test(email)) {
+
+    resultado.className = "vermelho";
+
+    resultado.innerText =
+      "Digite um e-mail válido.";
+
+    return;
+
+  }
+
+
+  // FOTO
 
   let foto = null;
 
@@ -103,6 +330,7 @@ async function cadastrar() {
 
     const arquivo =
       fotoInput.files[0];
+
 
     if (!arquivo.type.startsWith("image/")) {
 
@@ -112,77 +340,279 @@ async function cadastrar() {
         "Selecione uma imagem válida.";
 
       return;
+
     }
 
-    foto = await converterImagem(arquivo);
+
+    // Limite de 5 MB
+
+    if (arquivo.size > 5 * 1024 * 1024) {
+
+      resultado.className = "vermelho";
+
+      resultado.innerText =
+        "A foto deve ter no máximo 5 MB.";
+
+      return;
+
+    }
+
+
+    foto =
+      await converterImagem(arquivo);
+
   }
+
+
+  // ENVIO PARA O BACKEND
 
   try {
 
-    const response = await fetch(
-      "/atendimento",
-      {
-        method: "POST",
+    const response =
+      await fetch(
+        "/atendimento",
+        {
+          method: "POST",
 
-        headers: {
-          "Content-Type": "application/json"
-        },
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
 
-        body: JSON.stringify({
-          nome,
-          cpf,
-          tipo,
-          foto
-        })
-      }
-    );
+          body:
+            JSON.stringify({
 
-    const data = await response.json();
+              nome,
+
+              cpf,
+
+              rg,
+
+              outroDocumento,
+
+              dataNascimento,
+
+              sexo,
+
+              nomeMae,
+
+              estadoCivil,
+
+              endereco,
+
+              telefone,
+
+              email,
+
+              contatoEmergencia,
+
+              tipo,
+
+              foto
+
+            })
+
+        }
+      );
+
+
+    const data =
+      await response.json();
+
 
     if (!response.ok) {
+
       throw new Error(
-        data.erro || "Erro ao cadastrar paciente."
+        data.erro ||
+        "Erro ao cadastrar paciente."
       );
+
     }
+
+
+    // SUCESSO
 
     resultado.className = "verde";
 
     resultado.innerText =
       "Paciente cadastrado e enviado para a triagem.";
 
+
+    // LIMPAR FORMULÁRIO
+
     document.getElementById("nome").value = "";
+
     document.getElementById("cpf").value = "";
-    document.getElementById("tipo").value = "";
+
+    document.getElementById("rg").value = "";
+
+    document
+      .getElementById("outroDocumento")
+      .value = "";
+
+    document
+      .getElementById("dataNascimento")
+      .value = "";
+
+    document
+      .getElementById("sexo")
+      .value = "";
+
+    document
+      .getElementById("nomeMae")
+      .value = "";
+
+    document
+      .getElementById("estadoCivil")
+      .value = "";
+
+    document
+      .getElementById("endereco")
+      .value = "";
+
+    document
+      .getElementById("telefone")
+      .value = "";
+
+    document
+      .getElementById("email")
+      .value = "";
+
+    document
+      .getElementById("contatoEmergencia")
+      .value = "";
+
+    document
+      .getElementById("tipo")
+      .value = "";
+
     fotoInput.value = "";
+
 
   } catch (error) {
 
     resultado.className = "vermelho";
 
-    resultado.innerText = error.message;
+    resultado.innerText =
+      error.message;
 
   }
 
 }
 
+
+// CONVERTER FOTO PARA BASE64
+
 function converterImagem(file) {
 
-  return new Promise((resolve, reject) => {
+  return new Promise(
+    (resolve, reject) => {
 
-    const reader = new FileReader();
+      const reader =
+        new FileReader();
 
-    reader.onload = () =>
-      resolve(reader.result);
+      reader.onload = () =>
+        resolve(reader.result);
 
-    reader.onerror = reject;
+      reader.onerror =
+        reject;
 
-    reader.readAsDataURL(file);
+      reader.readAsDataURL(file);
 
-  });
+    }
+  );
 
 }
+
+
+// MÁSCARA DE CPF
+
+document
+  .getElementById("cpf")
+  .addEventListener(
+    "input",
+    function () {
+
+      let valor =
+        this.value
+          .replace(/\D/g, "")
+          .substring(0, 11);
+
+      valor =
+        valor.replace(
+          /(\d{3})(\d)/,
+          "$1.$2"
+        );
+
+      valor =
+        valor.replace(
+          /(\d{3})(\d)/,
+          "$1.$2"
+        );
+
+      valor =
+        valor.replace(
+          /(\d{3})(\d{1,2})$/,
+          "$1-$2"
+        );
+
+      this.value = valor;
+
+    }
+  );
+
+
+// MÁSCARA DE TELEFONE
+
+document
+  .getElementById("telefone")
+  .addEventListener(
+    "input",
+    function () {
+
+      let valor =
+        this.value
+          .replace(/\D/g, "")
+          .substring(0, 11);
+
+
+      if (valor.length <= 10) {
+
+        valor =
+          valor.replace(
+            /^(\d{2})(\d)/,
+            "($1) $2"
+          );
+
+        valor =
+          valor.replace(
+            /(\d{4})(\d)/,
+            "$1-$2"
+          );
+
+      } else {
+
+        valor =
+          valor.replace(
+            /^(\d{2})(\d)/,
+            "($1) $2"
+          );
+
+        valor =
+          valor.replace(
+            /(\d{5})(\d)/,
+            "$1-$2"
+          );
+
+      }
+
+      this.value = valor;
+
+    }
+  );
 
 </script>
 
 </body>
+
 </html>
