@@ -12,7 +12,10 @@
 
   <title>HospTech | Medicações</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 
 </head>
 
@@ -20,19 +23,33 @@
 
 <div class="container">
 
-  <h2>
-    💊 Medicações Prescritas
-  </h2>
+  <div class="page-header">
 
-  <p>
-    Histórico de medicações prescritas durante as consultas.
-  </p>
+    <div class="page-title">
+
+      <div class="page-title-icon">
+        💊
+      </div>
+
+      <div>
+
+        <h2>Medicações prescritas</h2>
+
+        <p>
+          Histórico das prescrições realizadas durante as consultas.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
 
   <div id="listaMedicacoes">
 
-    <p>
-      Carregando...
-    </p>
+    <div class="empty-state">
+      Carregando histórico...
+    </div>
 
   </div>
 
@@ -50,85 +67,135 @@ async function carregarMedicacoesPrescritas() {
   try {
 
     const response =
-      await fetch("/medicacoes");
+      await fetch(
+        "/medicacoes"
+      );
 
     const data =
       await response.json();
 
     div.innerHTML = "";
 
-    if (data.length === 0) {
+    if (
+      data.length === 0
+    ) {
 
       div.innerHTML = `
         <div class="card">
+
+          <div class="medication-icon">
+            💊
+          </div>
+
           <p>
             Nenhuma medicação prescrita ainda.
           </p>
+
         </div>
       `;
 
       return;
     }
 
-    data.forEach(c => {
+    data
+      .slice()
+      .reverse()
+      .forEach(c => {
 
-      const card =
-        document.createElement("div");
+        const card =
+          document.createElement(
+            "div"
+          );
 
-      card.className = "card";
+        card.className =
+          "card";
 
-      card.innerHTML = `
+        card.innerHTML = `
 
-        <h3>
-          👤 ${escapeHTML(c.paciente)}
-        </h3>
+          <div class="medication-icon">
+            💊
+          </div>
 
-        <p>
-          <b>💊 Medicação:</b>
-          ${escapeHTML(c.medicacao)}
-        </p>
+          <h3>
+            ${escapeHTML(
+              c.paciente ||
+              "Paciente não informado"
+            )}
+          </h3>
 
-        <p>
-          <b>🩺 Diagnóstico:</b>
-          ${escapeHTML(c.diagnostico)}
-        </p>
+          <p>
+            <strong>
+              Medicação
+            </strong><br>
 
-        <p>
-          <b>📝 Observações:</b>
-          ${escapeHTML(
-            c.obs || "Nenhuma"
-          )}
-        </p>
+            ${escapeHTML(
+              c.medicacao ||
+              "Não informada"
+            )}
+          </p>
 
-      `;
+          <p>
+            <strong>
+              Diagnóstico
+            </strong><br>
 
-      div.appendChild(card);
+            ${escapeHTML(
+              c.diagnostico ||
+              "Não informado"
+            )}
+          </p>
 
-    });
+          <p>
+            <strong>
+              Observações
+            </strong><br>
+
+            ${escapeHTML(
+              c.obs ||
+              "Nenhuma observação."
+            )}
+          </p>
+
+        `;
+
+        div.appendChild(
+          card
+        );
+      });
 
   } catch (error) {
 
     div.innerHTML = `
-      <div class="card">
-        <p style="color:#f87171;">
-          Erro ao carregar medicações.
-        </p>
+      <div class="vermelho">
+        Erro ao carregar o histórico de medicações.
       </div>
     `;
-
   }
-
 }
 
 function escapeHTML(value) {
 
   return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 }
 
 carregarMedicacoesPrescritas();
@@ -141,4 +208,5 @@ setInterval(
 </script>
 
 </body>
+
 </html>
