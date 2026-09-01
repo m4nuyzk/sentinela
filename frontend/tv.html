@@ -10,122 +10,108 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>HospTech | Mídia Indoor</title>
+  <title>HospTech | Painel de Chamadas</title>
 
   <style>
 
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
     }
 
     body {
 
+      margin: 0;
+
+      min-height: 100vh;
+
+      font-family:
+        Arial,
+        sans-serif;
+
       background:
-        radial-gradient(
-          circle at 15% 15%,
-          rgba(124,58,237,.30),
-          transparent 30%
-        ),
-
-        radial-gradient(
-          circle at 85% 85%,
-          rgba(139,92,246,.20),
-          transparent 30%
-        ),
-
         linear-gradient(
           135deg,
-          #08040d,
-          #120720,
-          #1d0b32
+          #eef4fb,
+          #f8fafc
         );
 
-      display: flex;
-
-      justify-content: center;
-
-      align-items: center;
-
-      height: 100vh;
+      color: #172033;
 
       overflow: hidden;
-
-      color: white;
     }
 
     .tv-container {
-
-      display: flex;
 
       width: 94vw;
 
       height: 90vh;
 
-      gap: 18px;
-    }
+      margin: 5vh auto;
 
-    .left-panel {
+      display: grid;
 
-      display: flex;
-
-      flex-direction: column;
-
-      width: 32%;
+      grid-template-columns:
+        30% 70%;
 
       gap: 18px;
     }
 
+    .left-panel,
     .right-panel {
 
       display: flex;
 
       flex-direction: column;
 
-      width: 68%;
-
       gap: 18px;
     }
 
     .box {
 
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.10),
-          rgba(255,255,255,.035)
-        );
+      background: white;
 
-      border: 1px solid
-        rgba(167,139,250,.28);
+      border: 1px solid #dbe4ef;
 
-      border-radius: 24px;
+      border-radius: 22px;
 
-      padding: 30px;
+      box-shadow:
+        0 15px 40px
+        rgba(15, 23, 42, .08);
+
+      overflow: hidden;
+    }
+
+    /* =====================================
+       LOCAL
+    ===================================== */
+
+    .local-box {
+
+      flex: 1;
 
       display: flex;
 
       flex-direction: column;
 
-      justify-content: center;
-
       align-items: center;
+
+      justify-content: center;
 
       text-align: center;
 
-      box-shadow:
-        0 20px 60px rgba(0,0,0,.45);
-
-      backdrop-filter: blur(20px);
+      background:
+        linear-gradient(
+          145deg,
+          #eff6ff,
+          #ffffff
+        );
     }
 
     .box-title {
 
-      color: #c4b5fd;
+      color: #64748b;
 
-      font-size: 2vw;
+      font-size: 1.4vw;
 
       font-weight: 800;
 
@@ -136,137 +122,205 @@
       margin-bottom: 15px;
     }
 
-    .local-box {
-      flex: 1;
+    .local-type {
+
+      color: #2563eb;
+
+      font-size: 2vw;
+
+      font-weight: 800;
     }
 
     .local-number {
 
-      color: white;
+      margin-top: 10px;
 
-      font-size: 9vw;
+      color: #172033;
+
+      font-size: 8vw;
 
       font-weight: 900;
 
       line-height: 1;
-
-      text-shadow:
-        0 0 30px
-        rgba(167,139,250,.5);
     }
 
-    .local-type {
-
-      color: #a78bfa;
-
-      font-size: 1.6vw;
-
-      font-weight: 800;
-
-      margin-top: 10px;
-    }
+    /* =====================================
+       HISTÓRICO
+    ===================================== */
 
     .history-box {
 
-      flex: 1.1;
+      flex: 1.2;
 
-      justify-content: flex-start;
-
-      align-items: flex-start;
+      padding: 25px;
     }
 
     .history-box .box-title {
 
-      font-size: 1.5vw;
+      text-align: center;
 
-      align-self: center;
+      font-size: 1.2vw;
 
-      margin-bottom: 25px;
+      margin-bottom: 20px;
     }
 
     #history-list {
 
       list-style: none;
 
+      padding: 0;
+
+      margin: 0;
+
       width: 100%;
-
-      color: #ddd6fe;
-
-      font-size: 1.3vw;
-
-      font-weight: 700;
-
-      text-align: left;
     }
 
     #history-list li {
 
-      margin-bottom: 12px;
-
-      padding: 10px 0;
+      padding: 13px 0;
 
       border-bottom:
-        1px solid
-        rgba(255,255,255,.08);
+        1px solid #e2e8f0;
+
+      color: #475569;
+
+      font-size: 1.1vw;
+
+      font-weight: 700;
     }
 
+    /* =====================================
+       PACIENTE
+    ===================================== */
+
     .patient-box {
+
       flex: 3;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+
+      text-align: center;
+
+      padding: 30px;
+
+      border-top:
+        8px solid #2563eb;
+    }
+
+    .patient-box .box-title {
+
+      color: #64748b;
+
+      font-size: 1.5vw;
     }
 
     .patient-name {
 
-      color: white;
+      max-width: 90%;
 
-      font-size: 6vw;
+      color: #172033;
+
+      font-size: 5.5vw;
 
       font-weight: 900;
 
-      line-height: 1.15;
+      line-height: 1.1;
 
       word-break: break-word;
-
-      text-shadow:
-        0 0 35px
-        rgba(139,92,246,.45);
     }
 
+    .patient-message {
+
+      margin-top: 25px;
+
+      padding: 12px 20px;
+
+      border-radius: 999px;
+
+      background: #eff6ff;
+
+      color: #2563eb;
+
+      font-size: 1.3vw;
+
+      font-weight: 800;
+    }
+
+    /* =====================================
+       LOGO
+    ===================================== */
+
     .logo-box {
-      flex: 1;
+
+      flex: .8;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      background:
+        linear-gradient(
+          135deg,
+          #2563eb,
+          #7c3aed
+        );
+
+      color: white;
+
+      border: none;
     }
 
     .logo-text {
 
-      color: #c4b5fd;
-
-      font-size: 3vw;
+      font-size: 2.4vw;
 
       font-weight: 900;
 
-      text-transform: uppercase;
-
-      letter-spacing: 2px;
+      letter-spacing: 1px;
     }
 
-    @keyframes flash {
+    /* =====================================
+       ANIMAÇÃO
+    ===================================== */
 
-      0%,
-      100% {
-        opacity: 1;
+    @keyframes chamada {
+
+      0% {
         transform: scale(1);
       }
 
       50% {
-        opacity: .55;
         transform: scale(1.015);
       }
 
+      100% {
+        transform: scale(1);
+      }
     }
 
     .flash {
+
       animation:
-        flash .5s ease 3;
+        chamada .5s ease 4;
+
+      box-shadow:
+        0 0 0 5px
+        rgba(37, 99, 235, .15),
+        0 20px 50px
+        rgba(37, 99, 235, .15);
     }
+
+    /* =====================================
+       RESPONSIVO
+    ===================================== */
 
     @media (max-width: 900px) {
 
@@ -276,28 +330,45 @@
 
         height: 94vh;
 
+        margin: 3vh auto;
+
         gap: 10px;
       }
 
       .box {
 
-        border-radius: 18px;
-
-        padding: 15px;
-      }
-
-      .box-title {
-        font-size: 3vw;
+        border-radius: 16px;
       }
 
       .patient-name {
+
         font-size: 7vw;
       }
 
-      .logo-text {
-        font-size: 3.5vw;
+      .box-title {
+
+        font-size: 2.5vw;
       }
 
+      .history-box .box-title {
+
+        font-size: 2.2vw;
+      }
+
+      #history-list li {
+
+        font-size: 1.8vw;
+      }
+
+      .patient-message {
+
+        font-size: 2vw;
+      }
+
+      .logo-text {
+
+        font-size: 3.5vw;
+      }
     }
 
   </style>
@@ -312,8 +383,12 @@
 
     <div class="box local-box">
 
+      <div class="box-title">
+        Atendimento
+      </div>
+
       <div
-        class="box-title"
+        class="local-type"
         id="local-tipo"
       >
         GUICHÊ
@@ -355,6 +430,10 @@
         AGUARDANDO...
       </div>
 
+      <div class="patient-message">
+        Aguarde o atendimento
+      </div>
+
     </div>
 
     <div class="box logo-box">
@@ -378,7 +457,9 @@ async function atualizar() {
   try {
 
     const response =
-      await fetch("/tv/chamada");
+      await fetch(
+        "/tv/chamada"
+      );
 
     const data =
       await response.json();
@@ -410,7 +491,8 @@ async function atualizar() {
         "AGUARDANDO...";
 
       if (
-        chamada.id !== ultimoId
+        chamada.id !==
+        ultimoId
       ) {
 
         ultimoId =
@@ -430,9 +512,7 @@ async function atualizar() {
         patientBox.classList.add(
           "flash"
         );
-
       }
-
     }
 
     const list =
@@ -443,17 +523,20 @@ async function atualizar() {
     list.innerHTML = "";
 
     historico
-      .slice(0, 4)
+      .slice(0, 5)
       .forEach(h => {
 
         const li =
-          document.createElement("li");
+          document.createElement(
+            "li"
+          );
 
         li.innerText =
           `${h.localTipo || "GUICHÊ"} ${h.localNumero || ""} — ${h.paciente}`;
 
-        list.appendChild(li);
-
+        list.appendChild(
+          li
+        );
       });
 
   } catch (error) {
@@ -462,9 +545,7 @@ async function atualizar() {
       "Erro ao buscar chamada:",
       error
     );
-
   }
-
 }
 
 atualizar();
