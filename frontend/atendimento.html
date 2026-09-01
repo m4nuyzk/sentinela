@@ -12,7 +12,10 @@
 
   <title>HospTech | Atendimento</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 
 </head>
 
@@ -20,253 +23,439 @@
 
 <div class="container">
 
-  <h2>👤 Atendimento</h2>
+  <div class="page-header">
 
-  <p>
-    Cadastre o paciente para enviá-lo à fila de triagem.
-  </p>
+    <div class="page-title">
+
+      <div class="page-title-icon">
+        👤
+      </div>
+
+      <div>
+
+        <h2>Cadastro de paciente</h2>
+
+        <p>
+          Registre os dados para iniciar o atendimento.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
 
   <!-- DADOS PESSOAIS -->
 
-  <h3>Dados pessoais</h3>
+  <section class="form-section">
 
-  <input
-    id="nome"
-    type="text"
-    placeholder="Nome completo"
-    autocomplete="name"
-  >
+    <h3 class="form-section-title">
 
-  <input
-    id="cpf"
-    type="text"
-    placeholder="CPF"
-    maxlength="14"
-  >
+      <span>👤</span>
 
-  <input
-    id="rg"
-    type="text"
-    placeholder="RG"
-    maxlength="20"
-  >
+      Dados pessoais
 
-  <input
-    id="outroDocumento"
-    type="text"
-    placeholder="Outro documento"
-  >
+    </h3>
 
-  <label for="dataNascimento">
-    Data de nascimento
-  </label>
+    <div class="form-grid">
 
-  <input
-    id="dataNascimento"
-    type="date"
-  >
+      <div class="form-group full">
 
-  <select id="sexo">
+        <label for="nome">
+          Nome completo
+        </label>
 
-    <option value="">
-      Sexo
-    </option>
+        <input
+          id="nome"
+          type="text"
+          placeholder="Digite o nome completo"
+          autocomplete="name"
+        >
 
-    <option value="Feminino">
-      Feminino
-    </option>
+      </div>
 
-    <option value="Masculino">
-      Masculino
-    </option>
+      <div class="form-group">
 
-    <option value="Outro">
-      Outro
-    </option>
+        <label for="cpf">
+          CPF
+        </label>
 
-    <option value="Nao informado">
-      Prefiro não informar
-    </option>
+        <input
+          id="cpf"
+          type="text"
+          placeholder="000.000.000-00"
+          maxlength="14"
+        >
 
-  </select>
+      </div>
 
-  <input
-    id="nomeMae"
-    type="text"
-    placeholder="Nome da mãe"
-  >
+      <div class="form-group">
 
-  <select id="estadoCivil">
+        <label for="rg">
+          RG
+        </label>
 
-    <option value="">
-      Estado civil
-    </option>
+        <input
+          id="rg"
+          type="text"
+          placeholder="Número do RG"
+          maxlength="20"
+        >
 
-    <option value="Solteiro">
-      Solteiro(a)
-    </option>
+      </div>
 
-    <option value="Casado">
-      Casado(a)
-    </option>
+      <div class="form-group">
 
-    <option value="Divorciado">
-      Divorciado(a)
-    </option>
+        <label for="outroDocumento">
+          Outro documento
+        </label>
 
-    <option value="Viuvo">
-      Viúvo(a)
-    </option>
+        <input
+          id="outroDocumento"
+          type="text"
+          placeholder="Opcional"
+        >
 
-    <option value="Uniao estavel">
-      União estável
-    </option>
+      </div>
 
-  </select>
+      <div class="form-group">
 
+        <label for="dataNascimento">
+          Data de nascimento
+        </label>
+
+        <input
+          id="dataNascimento"
+          type="date"
+        >
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="sexo">
+          Sexo
+        </label>
+
+        <select id="sexo">
+
+          <option value="">
+            Selecione
+          </option>
+
+          <option value="Feminino">
+            Feminino
+          </option>
+
+          <option value="Masculino">
+            Masculino
+          </option>
+
+          <option value="Outro">
+            Outro
+          </option>
+
+          <option value="Nao informado">
+            Prefiro não informar
+          </option>
+
+        </select>
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="estadoCivil">
+          Estado civil
+        </label>
+
+        <select id="estadoCivil">
+
+          <option value="">
+            Selecione
+          </option>
+
+          <option value="Solteiro">
+            Solteiro(a)
+          </option>
+
+          <option value="Casado">
+            Casado(a)
+          </option>
+
+          <option value="Divorciado">
+            Divorciado(a)
+          </option>
+
+          <option value="Viuvo">
+            Viúvo(a)
+          </option>
+
+          <option value="Uniao estavel">
+            União estável
+          </option>
+
+        </select>
+
+      </div>
+
+      <div class="form-group full">
+
+        <label for="nomeMae">
+          Nome da mãe
+        </label>
+
+        <input
+          id="nomeMae"
+          type="text"
+          placeholder="Nome completo da mãe"
+        >
+
+      </div>
+
+    </div>
+
+  </section>
 
   <!-- CONTATO -->
 
-  <h3>Contato</h3>
+  <section class="form-section">
 
-  <input
-    id="telefone"
-    type="tel"
-    placeholder="Telefone"
-    autocomplete="tel"
-  >
+    <h3 class="form-section-title">
 
-  <input
-    id="email"
-    type="email"
-    placeholder="E-mail"
-    autocomplete="email"
-  >
+      <span>📞</span>
 
-  <input
-    id="contatoEmergencia"
-    type="text"
-    placeholder="Contato de emergência"
-  >
+      Contato
 
+    </h3>
+
+    <div class="form-grid">
+
+      <div class="form-group">
+
+        <label for="telefone">
+          Telefone
+        </label>
+
+        <input
+          id="telefone"
+          type="tel"
+          placeholder="(00) 00000-0000"
+          autocomplete="tel"
+        >
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="email">
+          E-mail
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          placeholder="paciente@email.com"
+          autocomplete="email"
+        >
+
+      </div>
+
+      <div class="form-group full">
+
+        <label for="contatoEmergencia">
+          Contato de emergência
+        </label>
+
+        <input
+          id="contatoEmergencia"
+          type="text"
+          placeholder="Nome e telefone para contato"
+        >
+
+      </div>
+
+    </div>
+
+  </section>
 
   <!-- ENDEREÇO -->
 
-  <h3>Endereço</h3>
+  <section class="form-section">
 
-  <input
-    id="endereco"
-    type="text"
-    placeholder="Endereço completo"
-    autocomplete="street-address"
-  >
+    <h3 class="form-section-title">
 
+      <span>📍</span>
+
+      Endereço
+
+    </h3>
+
+    <div class="form-grid">
+
+      <div class="form-group full">
+
+        <label for="endereco">
+          Endereço completo
+        </label>
+
+        <input
+          id="endereco"
+          type="text"
+          placeholder="Rua, número, bairro, cidade..."
+          autocomplete="street-address"
+        >
+
+      </div>
+
+    </div>
+
+  </section>
 
   <!-- ATENDIMENTO -->
 
-  <h3>Atendimento</h3>
+  <section class="form-section">
 
-  <select id="tipo">
+    <h3 class="form-section-title">
 
-    <option value="">
-      Tipo de atendimento
-    </option>
+      <span>🏥</span>
 
-    <option value="Convenio">
-      Convênio
-    </option>
+      Atendimento
 
-    <option value="Particular">
-      Particular
-    </option>
+    </h3>
 
-  </select>
+    <div class="form-grid">
 
+      <div class="form-group">
 
-  <!-- FOTO -->
+        <label for="tipo">
+          Tipo de atendimento
+        </label>
 
-  <h3>Foto do paciente</h3>
+        <select id="tipo">
 
-  <input
-    type="file"
-    id="foto"
-    accept="image/*"
-  >
+          <option value="">
+            Selecione
+          </option>
 
+          <option value="Convenio">
+            Convênio
+          </option>
+
+          <option value="Particular">
+            Particular
+          </option>
+
+        </select>
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="foto">
+          Foto do paciente
+        </label>
+
+        <input
+          type="file"
+          id="foto"
+          accept="image/*"
+        >
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <div id="resultado"></div>
 
   <button onclick="cadastrar()">
     Cadastrar paciente
   </button>
 
-  <div id="resultado"></div>
-
 </div>
-
 
 <script>
 
 async function cadastrar() {
 
-  const nome =
-    document.getElementById("nome").value.trim();
+  const campos = {
 
-  const cpf =
-    document.getElementById("cpf").value.trim();
+    nome:
+      document
+        .getElementById("nome")
+        .value
+        .trim(),
 
-  const rg =
-    document.getElementById("rg").value.trim();
+    cpf:
+      document
+        .getElementById("cpf")
+        .value
+        .trim(),
 
-  const outroDocumento =
-    document
-      .getElementById("outroDocumento")
-      .value
-      .trim();
+    rg:
+      document
+        .getElementById("rg")
+        .value
+        .trim(),
 
-  const dataNascimento =
-    document
-      .getElementById("dataNascimento")
-      .value;
+    outroDocumento:
+      document
+        .getElementById("outroDocumento")
+        .value
+        .trim(),
 
-  const sexo =
-    document.getElementById("sexo").value;
+    dataNascimento:
+      document
+        .getElementById("dataNascimento")
+        .value,
 
-  const nomeMae =
-    document
-      .getElementById("nomeMae")
-      .value
-      .trim();
+    sexo:
+      document
+        .getElementById("sexo")
+        .value,
 
-  const estadoCivil =
-    document
-      .getElementById("estadoCivil")
-      .value;
+    nomeMae:
+      document
+        .getElementById("nomeMae")
+        .value
+        .trim(),
 
-  const endereco =
-    document
-      .getElementById("endereco")
-      .value
-      .trim();
+    estadoCivil:
+      document
+        .getElementById("estadoCivil")
+        .value,
 
-  const telefone =
-    document
-      .getElementById("telefone")
-      .value
-      .trim();
+    endereco:
+      document
+        .getElementById("endereco")
+        .value
+        .trim(),
 
-  const email =
-    document
-      .getElementById("email")
-      .value
-      .trim();
+    telefone:
+      document
+        .getElementById("telefone")
+        .value
+        .trim(),
 
-  const contatoEmergencia =
-    document
-      .getElementById("contatoEmergencia")
-      .value
-      .trim();
+    email:
+      document
+        .getElementById("email")
+        .value
+        .trim(),
 
-  const tipo =
-    document.getElementById("tipo").value;
+    contatoEmergencia:
+      document
+        .getElementById("contatoEmergencia")
+        .value
+        .trim(),
+
+    tipo:
+      document
+        .getElementById("tipo")
+        .value
+  };
 
   const fotoInput =
     document.getElementById("foto");
@@ -274,55 +463,56 @@ async function cadastrar() {
   const resultado =
     document.getElementById("resultado");
 
+  resultado.className = "";
+  resultado.innerText = "";
 
-  resultado.innerHTML = "";
-
-
-  // VALIDAÇÃO DOS CAMPOS OBRIGATÓRIOS
+  const obrigatorios = [
+    campos.nome,
+    campos.cpf,
+    campos.rg,
+    campos.dataNascimento,
+    campos.sexo,
+    campos.nomeMae,
+    campos.estadoCivil,
+    campos.endereco,
+    campos.telefone,
+    campos.email,
+    campos.contatoEmergencia,
+    campos.tipo
+  ];
 
   if (
-    !nome ||
-    !cpf ||
-    !rg ||
-    !dataNascimento ||
-    !sexo ||
-    !nomeMae ||
-    !estadoCivil ||
-    !endereco ||
-    !telefone ||
-    !email ||
-    !contatoEmergencia ||
-    !tipo
+    obrigatorios.some(
+      valor => !valor
+    )
   ) {
 
-    resultado.className = "vermelho";
+    resultado.className =
+      "vermelho";
 
     resultado.innerText =
       "Preencha todos os campos obrigatórios.";
 
     return;
-
   }
-
-
-  // VALIDAÇÃO DO E-MAIL
 
   const emailValido =
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  if (!emailValido.test(email)) {
+  if (
+    !emailValido.test(
+      campos.email
+    )
+  ) {
 
-    resultado.className = "vermelho";
+    resultado.className =
+      "vermelho";
 
     resultado.innerText =
       "Digite um e-mail válido.";
 
     return;
-
   }
-
-
-  // FOTO
 
   let foto = null;
 
@@ -331,40 +521,40 @@ async function cadastrar() {
     const arquivo =
       fotoInput.files[0];
 
+    if (
+      !arquivo.type.startsWith(
+        "image/"
+      )
+    ) {
 
-    if (!arquivo.type.startsWith("image/")) {
-
-      resultado.className = "vermelho";
+      resultado.className =
+        "vermelho";
 
       resultado.innerText =
         "Selecione uma imagem válida.";
 
       return;
-
     }
 
+    if (
+      arquivo.size >
+      5 * 1024 * 1024
+    ) {
 
-    // Limite de 5 MB
-
-    if (arquivo.size > 5 * 1024 * 1024) {
-
-      resultado.className = "vermelho";
+      resultado.className =
+        "vermelho";
 
       resultado.innerText =
         "A foto deve ter no máximo 5 MB.";
 
       return;
-
     }
 
-
     foto =
-      await converterImagem(arquivo);
-
+      await converterImagem(
+        arquivo
+      );
   }
-
-
-  // ENVIO PARA O BACKEND
 
   try {
 
@@ -372,6 +562,7 @@ async function cadastrar() {
       await fetch(
         "/atendimento",
         {
+
           method: "POST",
 
           headers: {
@@ -381,44 +572,14 @@ async function cadastrar() {
 
           body:
             JSON.stringify({
-
-              nome,
-
-              cpf,
-
-              rg,
-
-              outroDocumento,
-
-              dataNascimento,
-
-              sexo,
-
-              nomeMae,
-
-              estadoCivil,
-
-              endereco,
-
-              telefone,
-
-              email,
-
-              contatoEmergencia,
-
-              tipo,
-
+              ...campos,
               foto
-
             })
-
         }
       );
 
-
     const data =
       await response.json();
-
 
     if (!response.ok) {
 
@@ -426,82 +587,54 @@ async function cadastrar() {
         data.erro ||
         "Erro ao cadastrar paciente."
       );
-
     }
 
-
-    // SUCESSO
-
-    resultado.className = "verde";
+    resultado.className =
+      "verde";
 
     resultado.innerText =
-      "Paciente cadastrado e enviado para a triagem.";
+      "Paciente cadastrado com sucesso e encaminhado para a triagem.";
 
-
-    // LIMPAR FORMULÁRIO
-
-    document.getElementById("nome").value = "";
-
-    document.getElementById("cpf").value = "";
-
-    document.getElementById("rg").value = "";
-
-    document
-      .getElementById("outroDocumento")
-      .value = "";
-
-    document
-      .getElementById("dataNascimento")
-      .value = "";
-
-    document
-      .getElementById("sexo")
-      .value = "";
-
-    document
-      .getElementById("nomeMae")
-      .value = "";
-
-    document
-      .getElementById("estadoCivil")
-      .value = "";
-
-    document
-      .getElementById("endereco")
-      .value = "";
-
-    document
-      .getElementById("telefone")
-      .value = "";
-
-    document
-      .getElementById("email")
-      .value = "";
-
-    document
-      .getElementById("contatoEmergencia")
-      .value = "";
-
-    document
-      .getElementById("tipo")
-      .value = "";
-
-    fotoInput.value = "";
-
+    limparFormulario();
 
   } catch (error) {
 
-    resultado.className = "vermelho";
+    resultado.className =
+      "vermelho";
 
     resultado.innerText =
       error.message;
-
   }
-
 }
 
+function limparFormulario() {
 
-// CONVERTER FOTO PARA BASE64
+  [
+    "nome",
+    "cpf",
+    "rg",
+    "outroDocumento",
+    "dataNascimento",
+    "sexo",
+    "nomeMae",
+    "estadoCivil",
+    "endereco",
+    "telefone",
+    "email",
+    "contatoEmergencia",
+    "tipo"
+  ].forEach(id => {
+
+    document.getElementById(
+      id
+    ).value = "";
+
+  });
+
+  document.getElementById(
+    "foto"
+  ).value = "";
+}
 
 function converterImagem(file) {
 
@@ -512,20 +645,23 @@ function converterImagem(file) {
         new FileReader();
 
       reader.onload = () =>
-        resolve(reader.result);
+        resolve(
+          reader.result
+        );
 
       reader.onerror =
         reject;
 
-      reader.readAsDataURL(file);
-
+      reader.readAsDataURL(
+        file
+      );
     }
   );
-
 }
 
-
-// MÁSCARA DE CPF
+// ==========================================
+// CPF
+// ==========================================
 
 document
   .getElementById("cpf")
@@ -557,12 +693,12 @@ document
         );
 
       this.value = valor;
-
     }
   );
 
-
-// MÁSCARA DE TELEFONE
+// ==========================================
+// TELEFONE
+// ==========================================
 
 document
   .getElementById("telefone")
@@ -575,8 +711,9 @@ document
           .replace(/\D/g, "")
           .substring(0, 11);
 
-
-      if (valor.length <= 10) {
+      if (
+        valor.length <= 10
+      ) {
 
         valor =
           valor.replace(
@@ -603,11 +740,9 @@ document
             /(\d{5})(\d)/,
             "$1-$2"
           );
-
       }
 
       this.value = valor;
-
     }
   );
 
