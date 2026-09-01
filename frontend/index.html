@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 
 <head>
+
   <meta charset="UTF-8">
 
   <meta
@@ -12,37 +13,58 @@
   <title>HospTech | Login</title>
 
   <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body class="login-page">
 
   <div class="container">
 
-    <div style="font-size: 55px; margin-bottom: 10px;">
+    <div class="login-logo">
       🏥
     </div>
 
-    <h2>Sistema Hospitalar</h2>
+    <h2>HospTech</h2>
 
-    <p>
-      Acesse o sistema para continuar
+    <p class="login-subtitle">
+      Sistema Integrado de Atendimento Hospitalar
     </p>
 
-    <input
-      id="usuario"
-      placeholder="Usuário"
-      autocomplete="username"
+    <div class="form-group">
+
+      <label for="usuario">
+        Usuário
+      </label>
+
+      <input
+        id="usuario"
+        type="text"
+        placeholder="Digite seu usuário"
+        autocomplete="username"
+      >
+
+    </div>
+
+    <div
+      class="form-group"
+      style="margin-top:16px;"
     >
 
-    <input
-      id="senha"
-      type="password"
-      placeholder="Senha"
-      autocomplete="current-password"
-    >
+      <label for="senha">
+        Senha
+      </label>
+
+      <input
+        id="senha"
+        type="password"
+        placeholder="Digite sua senha"
+        autocomplete="current-password"
+      >
+
+    </div>
 
     <button onclick="login()">
-      Entrar
+      Entrar no sistema
     </button>
 
     <div id="erro"></div>
@@ -54,15 +76,21 @@
 async function login() {
 
   const usuario =
-    document.getElementById("usuario").value.trim();
+    document
+      .getElementById("usuario")
+      .value
+      .trim();
 
   const senha =
-    document.getElementById("senha").value;
+    document
+      .getElementById("senha")
+      .value;
 
   const erro =
     document.getElementById("erro");
 
-  erro.innerHTML = "";
+  erro.className = "";
+  erro.innerText = "";
 
   if (!usuario || !senha) {
 
@@ -76,43 +104,55 @@ async function login() {
 
   try {
 
-    const response = await fetch("/login", {
+    const response =
+      await fetch("/login", {
 
-      method: "POST",
+        method: "POST",
 
-      headers: {
-        "Content-Type": "application/json"
-      },
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
 
-      body: JSON.stringify({
-        usuario,
-        senha
-      })
+        body:
+          JSON.stringify({
+            usuario,
+            senha
+          })
+      });
 
-    });
-
-    const data = await response.json();
+    const data =
+      await response.json();
 
     if (!response.ok) {
 
       throw new Error(
-        data.erro || "Erro ao realizar login."
+        data.erro ||
+        "Erro ao realizar login."
       );
-
     }
 
     if (data.tipo === "triagem") {
-      location.href = "triagem.html";
+
+      location.href =
+        "triagem.html";
+
       return;
     }
 
     if (data.tipo === "medico") {
-      location.href = "medico.html";
+
+      location.href =
+        "medico.html";
+
       return;
     }
 
     if (data.tipo === "atendimento") {
-      location.href = "atendimento.html";
+
+      location.href =
+        "atendimento.html";
+
       return;
     }
 
@@ -125,23 +165,26 @@ async function login() {
 
     erro.className = "vermelho";
 
-    erro.innerText = error.message;
-
+    erro.innerText =
+      error.message;
   }
-
 }
 
 document
   .getElementById("senha")
-  .addEventListener("keydown", event => {
+  .addEventListener(
+    "keydown",
+    event => {
 
-    if (event.key === "Enter") {
-      login();
+      if (event.key === "Enter") {
+        login();
+      }
+
     }
-
-  });
+  );
 
 </script>
 
 </body>
+
 </html>
