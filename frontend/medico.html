@@ -12,7 +12,10 @@
 
   <title>HospTech | Médico</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 
 </head>
 
@@ -20,17 +23,25 @@
 
 <div class="container">
 
-  <div style="
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:15px;
-    margin-bottom:20px;
-  ">
+  <div class="page-header">
 
-    <h2 style="margin:0;">
-      🩺 Painel Médico
-    </h2>
+    <div class="page-title">
+
+      <div class="page-title-icon">
+        🩺
+      </div>
+
+      <div>
+
+        <h2>Painel médico</h2>
+
+        <p>
+          Gerencie os pacientes e registre as consultas.
+        </p>
+
+      </div>
+
+    </div>
 
     <button
       class="btn-abrir-tv"
@@ -43,8 +54,8 @@
 
   <div class="consultorio-input">
 
-    <label>
-      Meu Consultório:
+    <label for="consultorio-num">
+      Consultório:
     </label>
 
     <input
@@ -54,58 +65,133 @@
       maxlength="3"
     >
 
-    <span style="
-      color:#9485a8;
-      font-size:12px;
-    ">
-      Número exibido na TV ao chamar o paciente.
+    <span>
+      Número exibido na chamada do paciente.
     </span>
 
   </div>
 
-  <h3>Pacientes aguardando atendimento</h3>
+  <div class="medico-layout">
 
-  <div id="triagens"></div>
+    <!-- FILA -->
 
-  <hr>
+    <section class="panel">
 
-  <h3>Consulta</h3>
+      <div class="panel-header">
 
-  <input
-    id="paciente"
-    placeholder="Paciente"
-    readonly
-  >
+        <h3>
+          Pacientes aguardando
+        </h3>
 
-  <input
-    id="diagnostico"
-    placeholder="Diagnóstico"
-  >
+      </div>
 
-  <select id="medicacao">
+      <div id="triagens">
 
-    <option value="">
-      Selecione a medicação
-    </option>
+        <div class="empty-state">
+          Carregando pacientes...
+        </div>
 
-  </select>
+      </div>
 
-  <textarea
-    id="obs"
-    placeholder="Observações"
-  ></textarea>
+    </section>
 
-  <button onclick="salvar()">
-    Salvar Consulta
-  </button>
+    <!-- CONSULTA -->
+
+    <section class="panel">
+
+      <div class="panel-header">
+
+        <h3>
+          Registro da consulta
+        </h3>
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="paciente">
+          Paciente
+        </label>
+
+        <input
+          id="paciente"
+          placeholder="Selecione um paciente"
+          readonly
+        >
+
+      </div>
+
+      <div
+        class="form-group"
+        style="margin-top:15px;"
+      >
+
+        <label for="diagnostico">
+          Diagnóstico
+        </label>
+
+        <input
+          id="diagnostico"
+          placeholder="Informe o diagnóstico"
+        >
+
+      </div>
+
+      <div
+        class="form-group"
+        style="margin-top:15px;"
+      >
+
+        <label for="medicacao">
+          Medicação
+        </label>
+
+        <select id="medicacao">
+
+          <option value="">
+            Selecione a medicação
+          </option>
+
+        </select>
+
+      </div>
+
+      <div
+        class="form-group"
+        style="margin-top:15px;"
+      >
+
+        <label for="obs">
+          Observações
+        </label>
+
+        <textarea
+          id="obs"
+          placeholder="Observações da consulta..."
+        ></textarea>
+
+      </div>
+
+      <button onclick="salvar()">
+        Salvar consulta
+      </button>
+
+    </section>
+
+  </div>
 
 </div>
 
 <script>
 
-let triagensCarregadas = [];
+let filaAtual = [];
 
 async function carregar() {
+
+  const div =
+    document.getElementById(
+      "triagens"
+    );
 
   try {
 
@@ -115,86 +201,104 @@ async function carregar() {
     const data =
       await response.json();
 
-    triagensCarregadas = data;
-
-    const div =
-      document.getElementById("triagens");
-
-    div.innerHTML = "";
-
-    const fila =
+    filaAtual =
       data.filter(
         t =>
           t.status ===
           "aguardando_medico"
       );
 
-    if (fila.length === 0) {
+    if (
+      filaAtual.length === 0
+    ) {
 
       div.innerHTML = `
-        <p style="text-align:center;">
+        <div class="empty-state">
           Nenhum paciente aguardando atendimento.
-        </p>
+        </div>
       `;
 
       return;
     }
 
-    fila.forEach((t, index) => {
+    div.innerHTML = "";
 
-      div.innerHTML += `
+    filaAtual.forEach(
+      (t, index) => {
 
-        <div class="card">
+        const card =
+          document.createElement(
+            "div"
+          );
+
+        card.className =
+          "card";
+
+        const temperatura =
+          t.temperatura !== ""
+            ? `${t.temperatura}°C`
+            : "Não informada";
+
+        card.innerHTML = `
 
           <h3>
             ${escapeHTML(t.nome)}
           </h3>
 
           <p>
-            <b>Sintoma:</b>
+            <strong>
+              Sintoma:
+            </strong>
             ${escapeHTML(
-              t.sintoma || "Não informado"
+              t.sintoma ||
+              "Não informado"
             )}
           </p>
 
           <p>
-            <b>Temperatura:</b>
-            ${
-              t.temperatura ??
-              "Não informada"
-            }°C
+            <strong>
+              Temperatura:
+            </strong>
+            ${escapeHTML(
+              temperatura
+            )}
           </p>
 
           <p>
             <span class="${t.risco}">
-              ${escapeHTML(t.risco)}
+              ${escapeHTML(
+                t.risco ||
+                "verde"
+              )}
             </span>
           </p>
 
           <p>
-            <b>Alergia:</b>
+            <strong>
+              Alergia:
+            </strong>
             ${escapeHTML(
-              t.alergia || "Nenhuma"
+              t.alergia ||
+              "Nenhuma informada"
             )}
           </p>
 
           <p>
-            <b>Observação:</b>
+            <strong>
+              Observação:
+            </strong>
             ${escapeHTML(
-              t.observacao || "Nenhuma"
+              t.observacao ||
+              "Nenhuma"
             )}
           </p>
 
-          <div style="
-            display:flex;
-            gap:8px;
-            flex-wrap:wrap;
-          ">
+          <div class="card-actions">
 
             <button
               onclick="selecionar(${index})"
             >
-              Atender
+              Atender paciente
             </button>
 
             <button
@@ -206,87 +310,32 @@ async function carregar() {
 
           </div>
 
-        </div>
+        `;
 
-      `;
-
-    });
-
-  } catch (error) {
-
-    document.getElementById(
-      "triagens"
-    ).innerHTML = `
-      <p style="color:#f87171;">
-        Erro ao carregar triagens.
-      </p>
-    `;
-
-  }
-
-}
-
-async function chamarNaTV(nome) {
-
-  const consultorio =
-    document.getElementById(
-      "consultorio-num"
-    ).value.trim() || "01";
-
-  try {
-
-    const response =
-      await fetch("/tv/chamar", {
-
-        method: "POST",
-
-        headers: {
-          "Content-Type": "application/json"
-        },
-
-        body: JSON.stringify({
-
-          localTipo: "CONSULTÓRIO",
-
-          localNumero: consultorio,
-
-          paciente: nome
-
-        })
-
-      });
-
-    const data =
-      await response.json();
-
-    if (!response.ok) {
-      throw new Error(
-        data.erro || "Erro ao chamar paciente."
-      );
-    }
-
-    alert(
-      "📺 " +
-      nome +
-      " foi chamado para o Consultório " +
-      consultorio +
-      "."
+        div.appendChild(
+          card
+        );
+      }
     );
 
   } catch (error) {
 
-    alert(error.message);
-
+    div.innerHTML = `
+      <div class="vermelho">
+        Erro ao carregar triagens.
+      </div>
+    `;
   }
-
 }
 
 async function selecionar(index) {
 
   const t =
-    triagensCarregadas[index];
+    filaAtual[index];
 
-  if (!t) return;
+  if (!t) {
+    return;
+  }
 
   document.getElementById(
     "paciente"
@@ -294,46 +343,166 @@ async function selecionar(index) {
 
   document.getElementById(
     "obs"
-  ).value = t.observacao || "";
+  ).value =
+    t.observacao || "";
 
-  try {
+  if (t.pacienteId) {
 
-    await fetch(
-      `/pacientes/${encodeURIComponent(t.id)}/status`,
-      {
-        method: "PATCH",
+    try {
 
-        headers: {
-          "Content-Type": "application/json"
-        },
+      await fetch(
+        `/pacientes/${t.pacienteId}/status`,
+        {
 
-        body: JSON.stringify({
-          status: "em_atendimento"
-        })
+          method: "PATCH",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+              status:
+                "em_atendimento"
+            })
+        }
+      );
+
+    } catch (error) {
+
+      console.error(
+        "Erro ao atualizar status:",
+        error
+      );
+    }
+
+  } else {
+
+    // Compatibilidade com triagens antigas
+
+    try {
+
+      const pacientesResponse =
+        await fetch(
+          "/pacientes"
+        );
+
+      const pacientes =
+        await pacientesResponse.json();
+
+      const paciente =
+        [...pacientes]
+          .reverse()
+          .find(
+            p =>
+              p.nome &&
+              p.nome.toLowerCase() ===
+                t.nome.toLowerCase()
+          );
+
+      if (paciente) {
+
+        await fetch(
+          `/pacientes/${paciente.id}/status`,
+          {
+
+            method: "PATCH",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body:
+              JSON.stringify({
+                status:
+                  "em_atendimento"
+              })
+          }
+        );
       }
-    );
 
-  } catch (error) {
+    } catch (error) {
 
-    console.error(
-      "Erro ao atualizar status:",
-      error
-    );
-
+      console.error(error);
+    }
   }
 
   if (
     t.alergia &&
-    t.alergia !== "Nenhuma"
+    t.alergia.toLowerCase() !==
+      "nenhuma"
   ) {
 
     alert(
-      "⚠️ Paciente possui alergia: " +
-      t.alergia
+      `⚠️ Atenção: paciente possui alergia a ${t.alergia}.`
     );
-
   }
 
+  carregar();
+}
+
+async function chamarNaTV(nome) {
+
+  const consultorio =
+    document
+      .getElementById(
+        "consultorio-num"
+      )
+      .value
+      .trim() || "01";
+
+  try {
+
+    const response =
+      await fetch(
+        "/tv/chamar",
+        {
+
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+
+              localTipo:
+                "CONSULTÓRIO",
+
+              localNumero:
+                consultorio,
+
+              paciente:
+                nome
+            })
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if (!response.ok) {
+
+      throw new Error(
+        data.erro ||
+        "Erro ao chamar paciente."
+      );
+    }
+
+    alert(
+      `${nome} foi chamado para o Consultório ${consultorio}.`
+    );
+
+  } catch (error) {
+
+    alert(
+      error.message
+    );
+  }
 }
 
 async function carregarMedicacoes() {
@@ -359,20 +528,25 @@ async function carregarMedicacoes() {
       </option>
     `;
 
-    data.forEach(med => {
+    data.forEach(
+      med => {
 
-      const option =
-        document.createElement(
-          "option"
+        const option =
+          document.createElement(
+            "option"
+          );
+
+        option.value =
+          med;
+
+        option.textContent =
+          med;
+
+        select.appendChild(
+          option
         );
-
-      option.value = med;
-
-      option.textContent = med;
-
-      select.appendChild(option);
-
-    });
+      }
+    );
 
   } catch (error) {
 
@@ -380,37 +554,46 @@ async function carregarMedicacoes() {
       "Erro ao carregar medicações:",
       error
     );
-
   }
-
 }
 
 async function salvar() {
 
   const paciente =
-    document.getElementById(
-      "paciente"
-    ).value.trim();
+    document
+      .getElementById(
+        "paciente"
+      )
+      .value
+      .trim();
 
   const diagnostico =
-    document.getElementById(
-      "diagnostico"
-    ).value.trim();
+    document
+      .getElementById(
+        "diagnostico"
+      )
+      .value
+      .trim();
 
   const medicacao =
-    document.getElementById(
-      "medicacao"
-    ).value;
+    document
+      .getElementById(
+        "medicacao"
+      )
+      .value;
 
   const obs =
-    document.getElementById(
-      "obs"
-    ).value.trim();
+    document
+      .getElementById(
+        "obs"
+      )
+      .value
+      .trim();
 
   if (!paciente) {
 
     alert(
-      "Selecione um paciente clicando em Atender."
+      "Selecione um paciente."
     );
 
     return;
@@ -437,27 +620,36 @@ async function salvar() {
   try {
 
     const response =
-      await fetch("/consulta", {
+      await fetch(
+        "/consulta",
+        {
 
-        method: "POST",
+          method: "POST",
 
-        headers: {
-          "Content-Type": "application/json"
-        },
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
 
-        body: JSON.stringify({
-          paciente,
-          diagnostico,
-          medicacao,
-          obs
-        })
+          body:
+            JSON.stringify({
 
-      });
+              paciente,
+
+              diagnostico,
+
+              medicacao,
+
+              obs
+            })
+        }
+      );
 
     const data =
       await response.json();
 
     if (!response.ok) {
+
       throw new Error(
         data.erro ||
         "Erro ao salvar consulta."
@@ -465,7 +657,7 @@ async function salvar() {
     }
 
     alert(
-      "✅ Consulta salva com sucesso!"
+      "Consulta registrada com sucesso!"
     );
 
     document.getElementById(
@@ -488,31 +680,56 @@ async function salvar() {
 
   } catch (error) {
 
-    alert(error.message);
-
+    alert(
+      error.message
+    );
   }
-
 }
 
 function escapeHTML(value) {
 
   return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 }
 
 function escapeJS(value) {
 
   return String(value)
-    .replaceAll("\\", "\\\\")
-    .replaceAll("'", "\\'")
-    .replaceAll("\n", "\\n")
-    .replaceAll("\r", "\\r");
-
+    .replaceAll(
+      "\\",
+      "\\\\"
+    )
+    .replaceAll(
+      "'",
+      "\\'"
+    )
+    .replaceAll(
+      "\n",
+      "\\n"
+    )
+    .replaceAll(
+      "\r",
+      "\\r"
+    );
 }
 
 carregar();
@@ -527,4 +744,5 @@ setInterval(
 </script>
 
 </body>
+
 </html>
