@@ -14,60 +14,296 @@
 
   <link rel="stylesheet" href="style.css">
 
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --primary-dark: #1d4ed8;
+      --background: #f1f5f9;
+      --white: #ffffff;
+      --text: #1e293b;
+      --gray: #64748b;
+      --danger: #dc2626;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body.login-page {
+      min-height: 100vh;
+      background: linear-gradient(
+        135deg,
+        #dbeafe,
+        #eff6ff,
+        #f8fafc
+      );
+
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      padding: 30px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+
+      background: var(--white);
+
+      border-radius: 16px;
+
+      padding: 35px;
+
+      box-shadow:
+        0 10px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    header {
+      text-align: center;
+
+      background: linear-gradient(
+        135deg,
+        var(--primary-color),
+        var(--primary-dark)
+      );
+
+      color: white;
+
+      padding: 25px;
+
+      border-radius: 12px;
+
+      margin-bottom: 25px;
+    }
+
+    header h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .login-logo {
+      width: 75px;
+      height: 75px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: #dbeafe;
+
+      border-radius: 50%;
+
+      font-size: 38px;
+
+      margin: 0 auto 20px;
+    }
+
+    .login-title {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .login-subtitle {
+      text-align: center;
+      color: var(--gray);
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    .form-section {
+      width: 100%;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .form-group input {
+      width: 100%;
+
+      padding: 12px 14px;
+
+      border: 1px solid #cbd5e1;
+
+      border-radius: 8px;
+
+      font-size: 15px;
+
+      outline: none;
+
+      transition: 0.2s;
+    }
+
+    .form-group input:focus {
+      border-color: var(--primary-color);
+
+      box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .login-button {
+      width: 100%;
+
+      margin-top: 8px;
+
+      padding: 13px 20px;
+
+      border: none;
+
+      border-radius: 8px;
+
+      background: var(--primary-color);
+
+      color: white;
+
+      font-size: 16px;
+
+      font-weight: bold;
+
+      cursor: pointer;
+
+      transition: 0.2s;
+    }
+
+    .login-button:hover {
+      background: var(--primary-dark);
+
+      transform: translateY(-1px);
+    }
+
+    #erro {
+      margin-top: 15px;
+
+      text-align: center;
+
+      font-size: 14px;
+    }
+
+    .vermelho {
+      color: var(--danger);
+
+      background: #fee2e2;
+
+      padding: 10px;
+
+      border-radius: 8px;
+
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+
+      body.login-page {
+        padding: 15px;
+      }
+
+      .container {
+        padding: 22px;
+      }
+
+      header h1 {
+        font-size: 23px;
+      }
+
+    }
+  </style>
+
 </head>
 
 <body class="login-page">
 
   <div class="container">
 
-    <div class="login-logo">
-      🏥
-    </div>
+    <header>
 
-    <h2>HospTech</h2>
+      <h1>
+        HospTech
+      </h1>
 
-    <p class="login-subtitle">
-      Sistema Integrado de Atendimento Hospitalar
-    </p>
+      <p>
+        Sistema Integrado de Atendimento Hospitalar
+      </p>
 
-    <div class="form-group">
+    </header>
 
-      <label for="usuario">
-        Usuário
-      </label>
+    <main>
 
-      <input
-        id="usuario"
-        type="text"
-        placeholder="Digite seu usuário"
-        autocomplete="username"
-      >
+      <section class="form-section">
 
-    </div>
+        <div class="login-logo">
+          🏥
+        </div>
 
-    <div
-      class="form-group"
-      style="margin-top:16px;"
-    >
+        <h2 class="login-title">
+          Acesso ao Sistema
+        </h2>
 
-      <label for="senha">
-        Senha
-      </label>
+        <p class="login-subtitle">
+          Entre com seu usuário e senha
+        </p>
 
-      <input
-        id="senha"
-        type="password"
-        placeholder="Digite sua senha"
-        autocomplete="current-password"
-      >
+        <div class="form-group">
 
-    </div>
+          <label for="usuario">
+            Usuário
+          </label>
 
-    <button onclick="login()">
-      Entrar no sistema
-    </button>
+          <input
+            id="usuario"
+            type="text"
+            placeholder="Digite seu usuário"
+            autocomplete="username"
+          >
 
-    <div id="erro"></div>
+        </div>
+
+        <div class="form-group">
+
+          <label for="senha">
+            Senha
+          </label>
+
+          <input
+            id="senha"
+            type="password"
+            placeholder="Digite sua senha"
+            autocomplete="current-password"
+          >
+
+        </div>
+
+        <button
+          class="login-button"
+          onclick="login()"
+        >
+          Entrar no sistema
+        </button>
+
+        <div id="erro"></div>
+
+      </section>
+
+    </main>
 
   </div>
 
