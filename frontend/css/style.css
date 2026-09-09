@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
+/* ==========================================
+   VARIÁVEIS
+========================================== */
+
 :root {
   --primary: #2563eb;
   --primary-dark: #1d4ed8;
@@ -28,14 +32,20 @@
   --red: #dc2626;
   --red-bg: #fef2f2;
 
-  --shadow:
-    0 10px 30px rgba(15, 23, 42, .07);
+  --shadow: 0 10px 30px rgba(15, 23, 42, 0.07);
 
   --radius: 16px;
 }
 
+
+/* ==========================================
+   RESET
+========================================== */
+
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
@@ -43,8 +53,6 @@ html {
 }
 
 body {
-  margin: 0;
-
   min-height: 100vh;
 
   font-family:
@@ -69,6 +77,7 @@ textarea {
   font-family: inherit;
 }
 
+
 /* ==========================================
    CONTAINER
 ========================================== */
@@ -89,6 +98,7 @@ textarea {
   box-shadow: var(--shadow);
 }
 
+
 /* ==========================================
    LOGIN
 ========================================== */
@@ -107,12 +117,12 @@ textarea {
   background:
     radial-gradient(
       circle at top left,
-      rgba(37, 99, 235, .10),
+      rgba(37, 99, 235, 0.10),
       transparent 30%
     ),
     radial-gradient(
       circle at bottom right,
-      rgba(124, 58, 237, .08),
+      rgba(124, 58, 237, 0.08),
       transparent 30%
     ),
     #f4f7fb;
@@ -156,7 +166,7 @@ textarea {
 
   box-shadow:
     0 12px 25px
-    rgba(37, 99, 235, .20);
+    rgba(37, 99, 235, 0.20);
 }
 
 .login-page h2 {
@@ -177,6 +187,7 @@ textarea {
   font-size: 14px;
 }
 
+
 /* ==========================================
    TÍTULOS
 ========================================== */
@@ -188,7 +199,7 @@ h2 {
 
   font-weight: 800;
 
-  letter-spacing: -.5px;
+  letter-spacing: -0.5px;
 }
 
 h3 {
@@ -206,6 +217,7 @@ p {
 
   line-height: 1.6;
 }
+
 
 /* ==========================================
    CABEÇALHO
@@ -262,6 +274,7 @@ p {
 
   color: var(--muted);
 }
+
 
 /* ==========================================
    FORMULÁRIOS
@@ -360,9 +373,9 @@ textarea {
   outline: none;
 
   transition:
-    border .2s,
-    box-shadow .2s,
-    background .2s;
+    border 0.2s,
+    box-shadow 0.2s,
+    background 0.2s;
 }
 
 input::placeholder,
@@ -383,7 +396,7 @@ textarea:focus {
 
   box-shadow:
     0 0 0 3px
-    rgba(37, 99, 235, .10);
+    rgba(37, 99, 235, 0.10);
 }
 
 input[readonly] {
@@ -405,6 +418,7 @@ select option {
 
   color: var(--text);
 }
+
 
 /* ==========================================
    BOTÕES
@@ -437,9 +451,9 @@ button {
   cursor: pointer;
 
   transition:
-    transform .2s,
-    box-shadow .2s,
-    opacity .2s;
+    transform 0.2s,
+    box-shadow 0.2s,
+    opacity 0.2s;
 }
 
 button:hover {
@@ -447,7 +461,7 @@ button:hover {
 
   box-shadow:
     0 8px 18px
-    rgba(37, 99, 235, .20);
+    rgba(37, 99, 235, 0.20);
 }
 
 button:active {
@@ -506,6 +520,7 @@ button:active {
     );
 }
 
+
 /* ==========================================
    CARDS
 ========================================== */
@@ -523,12 +538,12 @@ button:active {
 
   box-shadow:
     0 4px 14px
-    rgba(15, 23, 42, .04);
+    rgba(15, 23, 42, 0.04);
 
   transition:
-    transform .2s,
-    box-shadow .2s,
-    border .2s;
+    transform 0.2s,
+    box-shadow 0.2s,
+    border 0.2s;
 }
 
 .card:hover {
@@ -538,7 +553,7 @@ button:active {
 
   box-shadow:
     0 8px 22px
-    rgba(15, 23, 42, .07);
+    rgba(15, 23, 42, 0.07);
 }
 
 .card h3 {
@@ -569,6 +584,7 @@ button:active {
   margin: 0;
 }
 
+
 /* ==========================================
    STATUS / RISCO
 ========================================== */
@@ -594,7 +610,7 @@ button:active {
 
   text-transform: uppercase;
 
-  letter-spacing: .3px;
+  letter-spacing: 0.3px;
 }
 
 .verde {
@@ -620,6 +636,7 @@ button:active {
 
   border: 1px solid #fecaca;
 }
+
 
 /* ==========================================
    FILA DE PACIENTES
@@ -689,6 +706,7 @@ button:active {
   font-size: 11px;
 }
 
+
 /* ==========================================
    CONSULTÓRIO
 ========================================== */
@@ -731,6 +749,7 @@ button:active {
   font-size: 11px;
 }
 
+
 /* ==========================================
    RESULTADO
 ========================================== */
@@ -748,6 +767,7 @@ button:active {
 #erro:empty {
   display: none;
 }
+
 
 /* ==========================================
    MEDICAÇÕES
@@ -787,6 +807,7 @@ button:active {
   font-size: 20px;
 }
 
+
 /* ==========================================
    ARQUIVO
 ========================================== */
@@ -817,6 +838,7 @@ input[type="file"]::file-selector-button {
   cursor: pointer;
 }
 
+
 /* ==========================================
    DIVISÓRIA
 ========================================== */
@@ -829,6 +851,7 @@ hr {
   margin: 32px 0;
 }
 
+
 /* ==========================================
    DASHBOARD MÉDICO
 ========================================== */
@@ -838,7 +861,7 @@ hr {
 
   grid-template-columns:
     minmax(0, 1.5fr)
-    minmax(320px, .8fr);
+    minmax(320px, 0.8fr);
 
   gap: 22px;
 }
@@ -878,6 +901,7 @@ hr {
 
   font-size: 13px;
 }
+
 
 /* ==========================================
    RESPONSIVO
@@ -956,4 +980,5 @@ hr {
   .card-actions button {
     width: 100%;
   }
+
 }
