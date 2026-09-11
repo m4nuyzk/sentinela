@@ -1,13 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
   <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+>
 
   <title>HospTech | Login</title>
 
@@ -18,81 +20,188 @@
 
   <div class="login-page">
 
-    <div class="container">
+```
+<div class="container">
 
-      <header>
-        <h1>HospTech</h1>
+  <header>
+    <h1>HospTech</h1>
 
-        <p>
-          Sistema Integrado de Atendimento Hospitalar
-        </p>
-      </header>
+    <p>
+      Sistema Integrado de Atendimento Hospitalar
+    </p>
+  </header>
 
-      <main>
+  <main>
 
-        <section class="form-section">
+    <section class="form-section">
 
-          <div class="login-logo">
-            🏥
-          </div>
+      <div class="login-logo">
+        🏥
+      </div>
 
-          <h2 class="login-title">
-            Acesso ao Sistema
-          </h2>
+      <h2 class="login-title">
+        Acesso ao Sistema
+      </h2>
 
-          <p class="login-subtitle">
-            Entre com seu usuário e senha
-          </p>
+      <p class="login-subtitle">
+        Entre com seu usuário e senha
+      </p>
 
-          <div class="form-group">
+      <div class="form-group">
 
-            <label for="usuario">
-              Usuário
-            </label>
+        <label for="usuario">
+          Usuário
+        </label>
 
-            <input
-              id="usuario"
-              type="text"
-              placeholder="Digite seu usuário"
-              autocomplete="username"
-            >
+        <input
+          id="usuario"
+          type="text"
+          placeholder="Digite seu usuário"
+          autocomplete="username"
+        >
 
-          </div>
+      </div>
 
-          <div class="form-group">
+      <div class="form-group">
 
-            <label for="senha">
-              Senha
-            </label>
+        <label for="senha">
+          Senha
+        </label>
 
-            <input
-              id="senha"
-              type="password"
-              placeholder="Digite sua senha"
-              autocomplete="current-password"
-            >
+        <input
+          id="senha"
+          type="password"
+          placeholder="Digite sua senha"
+          autocomplete="current-password"
+        >
 
-          </div>
+      </div>
 
-          <button
-            type="button"
-            class="login-button"
-            onclick="login()"
-          >
-            Entrar no sistema
-          </button>
+      <button
+        type="button"
+        class="login-button"
+        onclick="login()"
+      >
+        Entrar no sistema
+      </button>
 
-          <div id="erro"></div>
+      <div id="erro"></div>
 
-        </section>
+    </section>
 
-      </main>
+  </main>
 
-    </div>
+</div>
+```
 
   </div>
 
-  <script src="script.js"></script>
+  <script>
+
+    async function login() {
+
+      const usuario = document
+        .getElementById("usuario")
+        .value
+        .trim();
+
+      const senha = document
+        .getElementById("senha")
+        .value
+        .trim();
+
+      const erro = document.getElementById("erro");
+      const botao = document.querySelector(".login-button");
+
+      // Limpa erro anterior
+      erro.textContent = "";
+
+      // Verifica campos
+      if (!usuario || !senha) {
+        erro.textContent = "Digite o usuário e a senha.";
+        return;
+      }
+
+      // Evita vários cliques
+      botao.disabled = true;
+      botao.textContent = "Entrando...";
+
+      try {
+
+        const resposta = await fetch("/login", {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+            usuario: usuario,
+            senha: senha
+          })
+        });
+
+        const dados = await resposta.json();
+
+        // Login inválido
+        if (!resposta.ok || !dados.sucesso) {
+
+          erro.textContent =
+            dados.erro ||
+            "Usuário ou senha incorretos.";
+
+          return;
+        }
+
+        // Salva os dados do usuário
+        localStorage.setItem(
+          "usuario",
+          dados.usuario
+        );
+
+        localStorage.setItem(
+          "tipo",
+          dados.tipo
+        );
+
+        // Redireciona conforme o tipo
+        switch (dados.tipo) {
+
+          case "triagem":
+            window.location.href = "/triagem.html";
+            break;
+
+          case "medico":
+            window.location.href = "/medico.html";
+            break;
+
+          case "atendimento":
+            window.location.href = "/atendimento.html";
+            break;
+
+          default:
+            erro.textContent =
+              "Tipo de usuário não reconhecido.";
+
+        }
+
+      } catch (error) {
+
+        console.error("Erro no login:", error);
+
+        erro.textContent =
+          "Não foi possível conectar ao servidor.";
+
+      } finally {
+
+        botao.disabled = false;
+        botao.textContent = "Entrar no sistema";
+
+      }
+
+    }
+
+  </script>
 
 </body>
 
